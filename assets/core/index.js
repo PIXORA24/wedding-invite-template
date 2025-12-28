@@ -19,7 +19,7 @@ enabledEvents.forEach(([key, event]) => {
   card.style.cursor = "pointer";
 
   card.innerHTML = `
-    <img src="${event.path}preview.jpg" style="width:240px; display:block;">
+    <img src="${event.path}preview.jpg?v=1" style="width:240px; display:block;">
     <div style="text-align:center; margin-top:8px; font-size:18px;">
       ${event.label}
     </div>
@@ -31,3 +31,4 @@ enabledEvents.forEach(([key, event]) => {
 
   grid.appendChild(card);
 });
+
