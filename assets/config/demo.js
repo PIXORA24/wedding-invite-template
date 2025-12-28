@@ -16,10 +16,11 @@ window.INVITE_DATA = {
       path: "assets/demo/wedding/"
     },
 
-    reception: {
-      label: "Reception",
-      enabled: true
-    },
+   reception: {
+  label: "Reception",
+  enabled: true,
+  path: "assets/demo/reception/"
+},
 
     mehndi: {
       label: "Mehndi",
@@ -27,4 +28,5 @@ window.INVITE_DATA = {
     }
   }
 };
+
 
