@@ -18,7 +18,7 @@ window.INVITE_DATA = {
 
     reception: {
       label: "Reception",
-      enabled: false
+      enabled: true
     },
 
     mehndi: {
@@ -27,3 +27,4 @@ window.INVITE_DATA = {
     }
   }
 };
+
