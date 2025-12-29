@@ -15,7 +15,7 @@
       text-align: center;
     }
 
-    /* Overlay */
+    /* ---------------- Overlay ---------------- */
     #tapOverlay {
       position: fixed;
       inset: 0;
@@ -33,7 +33,7 @@
       opacity: 0.9;
     }
 
-    /* Invite panel */
+    /* ---------------- Invite panel ---------------- */
     .invite-panel {
       max-width: 360px;
       margin: 30px auto;
@@ -44,7 +44,7 @@
         0 0 0 1px rgba(255,255,255,0.05);
     }
 
-    /* UI fade-in */
+    /* ---------------- UI container ---------------- */
     #inviteUI {
       opacity: 0;
       transform: translateY(20px);
@@ -54,6 +54,35 @@
     .ui-visible #inviteUI {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* ---------------- Phase-based reveal ---------------- */
+    .ui-title,
+    .ui-countdown,
+    .ui-actions {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .ui-visible .ui-title {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s ease;
+      transition-delay: 3.5s;
+    }
+
+    .ui-visible .ui-countdown {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s ease;
+      transition-delay: 4.5s;
+    }
+
+    .ui-visible .ui-actions {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s ease;
+      transition-delay: 5.5s;
     }
 
     a {
@@ -81,14 +110,18 @@
     ></video>
   </div>
 
-  <!-- UI (appears after audio starts) -->
+  <!-- UI (reveals in phases) -->
   <div id="inviteUI">
-    <h1 id="eventTitle"></h1>
 
-    <div id="countdown"></div>
+    <h1 id="eventTitle" class="ui-title"></h1>
 
-    <a id="mapLink" target="_blank">Open Map</a><br>
-    <a id="calendarLink" target="_blank">Add to Calendar</a>
+    <div id="countdown" class="ui-countdown"></div>
+
+    <div class="ui-actions">
+      <a id="mapLink" target="_blank">Open Map</a><br>
+      <a id="calendarLink" target="_blank">Add to Calendar</a>
+    </div>
+
   </div>
 
   <!-- Hidden audio -->
