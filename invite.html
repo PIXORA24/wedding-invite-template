@@ -36,7 +36,7 @@
     /* ---------------- Invite panel ---------------- */
     .invite-panel {
       max-width: 360px;
-      margin: 32px auto 24px;
+      margin: 32px auto 14px;
       border-radius: 18px;
       overflow: hidden;
       box-shadow:
@@ -47,16 +47,11 @@
       opacity: 0;
     }
 
-    /* One-time settle animation */
     .ui-visible .invite-panel {
       animation: cardSettle 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
     }
 
     @keyframes cardSettle {
-      from {
-        transform: scale(0.985);
-        opacity: 0;
-      }
       to {
         transform: scale(1);
         opacity: 1;
@@ -66,7 +61,7 @@
     /* ---------------- UI container ---------------- */
     #inviteUI {
       opacity: 0;
-      transform: translateY(16px);
+      transform: translateY(12px);
       transition: all 0.8s ease;
     }
 
@@ -75,47 +70,14 @@
       transform: translateY(0);
     }
 
-    /* ---------------- Phase-based reveal ---------------- */
-    .ui-title,
-    .ui-countdown,
-    .ui-actions {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-
-    .ui-visible .ui-title {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.8s ease;
-      transition-delay: 2.8s;
-    }
-
-    .ui-visible .ui-countdown {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.8s ease;
-      transition-delay: 3.6s;
-    }
-
-    .ui-visible .ui-actions {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.8s ease;
-      transition-delay: 4.4s;
-    }
-
-    /* ---------------- Typography ---------------- */
-    h1 {
-      margin: 16px 0 8px;
-      font-size: 28px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-    }
-
+    /* ---------------- Countdown ---------------- */
     #countdown {
-      font-size: 15px;
-      opacity: 0.85;
-      margin-bottom: 20px;
+      margin: 12px 0 18px;
+      font-size: 14px;
+      letter-spacing: 0.6px;
+      opacity: 0.75;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
 
     /* ---------------- Action buttons ---------------- */
@@ -123,7 +85,6 @@
       display: flex;
       gap: 12px;
       justify-content: center;
-      margin-top: 12px;
     }
 
     .ui-actions a {
@@ -150,7 +111,7 @@
     <div class="tapText">Tap to View Invitation</div>
   </div>
 
-  <!-- VIDEO PANEL -->
+  <!-- HERO CARD -->
   <div class="invite-panel">
     <video
       id="inviteVideo"
@@ -162,8 +123,7 @@
 
   <!-- UI -->
   <div id="inviteUI">
-    <h1 id="eventTitle" class="ui-title"></h1>
-    <div id="countdown" class="ui-countdown"></div>
+    <div id="countdown"></div>
 
     <div class="ui-actions">
       <a id="mapLink" target="_blank">Open Map</a>
@@ -171,10 +131,8 @@
     </div>
   </div>
 
-  <!-- Hidden audio -->
   <audio id="inviteMusic" loop></audio>
 
-  <!-- Scripts -->
   <script src="assets/config/demo.js"></script>
   <script src="assets/core/invite.js"></script>
 
