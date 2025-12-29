@@ -44,6 +44,24 @@
         0 0 0 1px rgba(255,255,255,0.05);
     }
 
+    /* ---------------- Hero card breathing motion ---------------- */
+    @keyframes cardBreathing {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-6px) scale(1.01);
+      }
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Apply breathing ONLY after UI becomes visible */
+    .ui-visible .invite-panel {
+      animation: cardBreathing 10s ease-in-out infinite;
+    }
+
     /* ---------------- UI container ---------------- */
     #inviteUI {
       opacity: 0;
