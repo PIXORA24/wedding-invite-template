@@ -8,8 +8,8 @@
   <style>
     body {
       margin: 0;
-      padding: 16px 16px 120px;
-      background: radial-gradient(circle at top, #1a0b12 0%, #000 65%);
+      padding: 16px;
+      background: radial-gradient(circle at top, #1a0f14 0%, #000 65%);
       color: #fff;
       font-family: serif;
       text-align: center;
@@ -19,7 +19,7 @@
     #tapOverlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, #2a0f1c, #000);
+      background: #000;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -28,91 +28,97 @@
     }
 
     .tapText {
-      font-size: 20px;
-      padding: 14px 28px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #f5d76e, #d4af37);
-      color: #000;
-      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.8px;
+      opacity: 0.9;
     }
 
     /* ---------------- Invite panel ---------------- */
     .invite-panel {
       max-width: 360px;
-      margin: 28px auto 18px;
+      margin: 32px auto 18px;
       border-radius: 18px;
       overflow: hidden;
       box-shadow:
-        0 35px 70px rgba(0,0,0,0.55),
+        0 30px 60px rgba(0,0,0,0.45),
         0 0 0 1px rgba(255,255,255,0.05);
+
+      transform: scale(0.985);
       opacity: 0;
-      transform: scale(0.98);
     }
 
     .ui-visible .invite-panel {
-      animation: settle 1.2s cubic-bezier(0.22,0.61,0.36,1) forwards;
+      animation: cardSettle 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
     }
 
-    @keyframes settle {
+    @keyframes cardSettle {
       to {
-        opacity: 1;
         transform: scale(1);
+        opacity: 1;
       }
     }
 
-    /* ---------------- Countdown pill ---------------- */
-    #countdown {
+    /* ---------------- Countdown badge ---------------- */
+    .countdown-wrap {
       display: inline-block;
-      margin: 10px auto 0;
-      padding: 10px 18px;
+      margin: 6px auto 18px;
+      padding: 10px 20px;
       border-radius: 999px;
       background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
-      font-size: 14px;
-      letter-spacing: 0.3px;
+      border: 1px solid rgba(255,255,255,0.14);
       backdrop-filter: blur(8px);
-      box-shadow: 0 0 18px rgba(212,175,55,0.15);
+      font-size: 15px;
+      letter-spacing: 0.6px;
       opacity: 0;
+      transform: scale(0.98);
+      will-change: transform, opacity;
     }
 
-    .ui-visible #countdown {
-      animation: fadeIn 1s ease forwards 1.8s;
+    .ui-visible .countdown-wrap {
+      animation: countdownBreath 7s ease-in-out infinite;
+      opacity: 1;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    @keyframes countdownBreath {
+      0%   { transform: scale(1);    opacity: 0.85; }
+      50%  { transform: scale(1.015); opacity: 1; }
+      100% { transform: scale(1);    opacity: 0.85; }
     }
 
-    /* ---------------- Fixed bottom actions ---------------- */
-    .action-bar {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 14px 16px 22px;
+    /* ---------------- UI container ---------------- */
+    #inviteUI {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: all 0.8s ease;
+    }
+
+    .ui-visible #inviteUI {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------------- Actions ---------------- */
+    .ui-actions {
       display: flex;
       gap: 12px;
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,0.85),
-        rgba(0,0,0,0)
-      );
-      backdrop-filter: blur(6px);
+      justify-content: center;
+      margin-top: 10px;
     }
 
-    .action-bar a {
+    .ui-actions a {
       flex: 1;
       padding: 14px 0;
       border-radius: 999px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
       color: #fff;
       text-decoration: none;
       font-size: 14px;
+      backdrop-filter: blur(6px);
     }
 
-    .action-bar a:active {
-      transform: scale(0.96);
+    .ui-actions a:active {
+      transform: scale(0.97);
     }
   </style>
 </head>
@@ -120,7 +126,7 @@
 
   <!-- TAP OVERLAY -->
   <div id="tapOverlay">
-    <div class="tapText">Tap to View Invite ✨</div>
+    <div class="tapText">Tap to View Invitation</div>
   </div>
 
   <!-- VIDEO PANEL -->
@@ -134,15 +140,17 @@
   </div>
 
   <!-- COUNTDOWN -->
-  <div id="countdown"></div>
+  <div class="countdown-wrap" id="countdown"></div>
 
-  <!-- FIXED ACTION BAR -->
-  <div class="action-bar">
-    <a id="mapLink" target="_blank">Open Map</a>
-    <a id="calendarLink" target="_blank">Add to Calendar</a>
+  <!-- ACTIONS -->
+  <div id="inviteUI">
+    <div class="ui-actions">
+      <a id="mapLink" target="_blank">Open Map</a>
+      <a id="calendarLink" target="_blank">Add to Calendar</a>
+    </div>
   </div>
 
-  <!-- AUDIO -->
+  <!-- Audio -->
   <audio id="inviteMusic" loop></audio>
 
   <script src="assets/config/demo.js"></script>
