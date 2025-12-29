@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 16px;
-      background: #000;
+      background: radial-gradient(circle at top, #111 0%, #000 60%);
       color: #fff;
       font-family: serif;
       text-align: center;
@@ -36,46 +36,37 @@
     /* ---------------- Invite panel ---------------- */
     .invite-panel {
       max-width: 360px;
-      margin: 30px auto;
-      border-radius: 16px;
+      margin: 32px auto 24px;
+      border-radius: 18px;
       overflow: hidden;
       box-shadow:
-        0 20px 40px rgba(0,0,0,0.35),
+        0 30px 60px rgba(0,0,0,0.45),
         0 0 0 1px rgba(255,255,255,0.05);
 
-      /* GPU stability */
-      will-change: transform;
-      transform: translate3d(0, 0, 0);
+      transform: scale(0.985);
+      opacity: 0;
     }
 
-    /* ---------------- Ultra-smooth hero card breathing motion ---------------- */
-    @keyframes cardBreathing {
-      0% {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-
-      40% {
-        transform: translate3d(0, -3px, 0) scale(1.006);
-      }
-
-      60% {
-        transform: translate3d(0, -3px, 0) scale(1.006);
-      }
-
-      100% {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-    }
-
-    /* Apply breathing ONLY after UI becomes visible */
+    /* One-time settle animation */
     .ui-visible .invite-panel {
-      animation: cardBreathing 16s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      animation: cardSettle 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    }
+
+    @keyframes cardSettle {
+      from {
+        transform: scale(0.985);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     /* ---------------- UI container ---------------- */
     #inviteUI {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(16px);
       transition: all 0.8s ease;
     }
 
@@ -89,35 +80,66 @@
     .ui-countdown,
     .ui-actions {
       opacity: 0;
-      transform: translateY(12px);
+      transform: translateY(10px);
     }
 
     .ui-visible .ui-title {
       opacity: 1;
       transform: translateY(0);
       transition: all 0.8s ease;
-      transition-delay: 3.5s;
+      transition-delay: 2.8s;
     }
 
     .ui-visible .ui-countdown {
       opacity: 1;
       transform: translateY(0);
       transition: all 0.8s ease;
-      transition-delay: 4.5s;
+      transition-delay: 3.6s;
     }
 
     .ui-visible .ui-actions {
       opacity: 1;
       transform: translateY(0);
       transition: all 0.8s ease;
-      transition-delay: 5.5s;
+      transition-delay: 4.4s;
     }
 
-    a {
-      color: #d4af37;
-      text-decoration: none;
-      display: inline-block;
+    /* ---------------- Typography ---------------- */
+    h1 {
+      margin: 16px 0 8px;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    #countdown {
+      font-size: 15px;
+      opacity: 0.85;
+      margin-bottom: 20px;
+    }
+
+    /* ---------------- Action buttons ---------------- */
+    .ui-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
       margin-top: 12px;
+    }
+
+    .ui-actions a {
+      flex: 1;
+      padding: 14px 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      backdrop-filter: blur(6px);
+    }
+
+    .ui-actions a:active {
+      transform: scale(0.97);
     }
   </style>
 </head>
@@ -138,18 +160,15 @@
     ></video>
   </div>
 
-  <!-- UI (reveals in phases) -->
+  <!-- UI -->
   <div id="inviteUI">
-
     <h1 id="eventTitle" class="ui-title"></h1>
-
     <div id="countdown" class="ui-countdown"></div>
 
     <div class="ui-actions">
-      <a id="mapLink" target="_blank">Open Map</a><br>
+      <a id="mapLink" target="_blank">Open Map</a>
       <a id="calendarLink" target="_blank">Add to Calendar</a>
     </div>
-
   </div>
 
   <!-- Hidden audio -->
