@@ -7,7 +7,7 @@ if (!eventKey || !INVITE_DATA.events[eventKey]) {
   throw new Error("Invalid event");
 }
 
-const event = INVITE_DATA.events[eventKey);
+const event = INVITE_DATA.events[eventKey];
 
 // ================= ELEMENTS =================
 const video = document.getElementById("inviteVideo");
@@ -23,7 +23,7 @@ video.poster = event.path + "bg.jpg";
 music.src = event.path + "music.mp3";
 mapLink.href = event.mapLink;
 
-// ================= COUNTDOWN (HIDDEN SECONDS) =================
+// ================= COUNTDOWN =================
 const eventTime = new Date(event.dateTimeISO).getTime();
 
 function updateCountdown() {
@@ -38,13 +38,12 @@ function updateCountdown() {
   const hours = Math.floor((diff / 3600000) % 24);
   const minutes = Math.floor((diff / 60000) % 60);
 
-  // ✨ Seconds drive animation, not text
-  countdownEl.textContent = `${days}d ${hours}h ${minutes}m to go`;
+  countdownEl.textContent =
+    `${days} days · ${hours} hours · ${minutes} minutes remaining`;
 }
 
-// Update every second (alive feel, invisible seconds)
 updateCountdown();
-setInterval(updateCountdown, 1000);
+setInterval(updateCountdown, 60000);
 
 // ================= CALENDAR =================
 const startISO = event.dateTimeISO.replace(/[-:]/g, "").split(".")[0];
@@ -55,28 +54,20 @@ calendarLink.href =
   `&dates=${startISO}/${startISO}` +
   `&location=${encodeURIComponent(event.venue)}`;
 
-// ================= AUTOPLAY LOGIC =================
-async function startInvite() {
+// ================= TAP-TO-START (SINGLE SOURCE OF TRUTH) =================
+overlay.addEventListener("click", async () => {
   try {
     await video.play();
     await music.play();
 
     overlay.classList.add("hide");
+    document.documentElement.classList.add("ui-visible");
 
     setTimeout(() => {
       overlay.remove();
     }, 700);
 
-    document.documentElement.classList.add("ui-visible");
-
-  } catch {
-    overlay.style.display = "flex";
+  } catch (err) {
+    console.error("Playback failed:", err);
   }
-}
-
-overlay.addEventListener("click", startInvite);
-
-window.addEventListener("DOMContentLoaded", () => {
-  overlay.style.display = "none";
-  startInvite();
 });
