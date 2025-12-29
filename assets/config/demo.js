@@ -12,12 +12,14 @@ window.INVITE_DATA = {
   venue: "123 anywhere st, any city",
   mapLink: "https://maps.app.goo.gl/demo",
   path: "assets/demo/wedding/"
-}
-,
+},
 
-   reception: {
+reception: {
   label: "Reception",
   enabled: true,
+  dateTimeISO: "2026-06-30T19:00:00+05:30",
+  venue: "123 anywhere st, any city",
+  mapLink: "https://maps.app.goo.gl/demo",
   path: "assets/demo/reception/"
 },
 
@@ -27,6 +29,7 @@ window.INVITE_DATA = {
     }
   }
 };
+
 
 
 
