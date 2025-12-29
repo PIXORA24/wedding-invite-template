@@ -4,28 +4,99 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invitation</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      background: #000;
+      color: #fff;
+      font-family: serif;
+      text-align: center;
+    }
+
+    /* Overlay */
+    #tapOverlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: pointer;
+    }
+
+    .tapText {
+      font-size: 22px;
+      letter-spacing: 1px;
+      opacity: 0.9;
+    }
+
+    /* Invite panel */
+    .invite-panel {
+      max-width: 360px;
+      margin: 30px auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.35),
+        0 0 0 1px rgba(255,255,255,0.05);
+    }
+
+    /* UI fade-in */
+    #inviteUI {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+
+    .ui-visible #inviteUI {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    a {
+      color: #d4af37;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 12px;
+    }
+  </style>
 </head>
 <body>
 
-  <h1 id="eventTitle"></h1>
+  <!-- TAP OVERLAY -->
+  <div id="tapOverlay">
+    <div class="tapText">Tap to View Invitation</div>
+  </div>
 
-  <video
-    id="inviteVideo"
-    controls
-    playsinline
-    style="width: 100%; max-width: 600px;"
-  ></video>
+  <!-- VIDEO PANEL -->
+  <div class="invite-panel">
+    <video
+      id="inviteVideo"
+      playsinline
+      muted
+      style="width:100%; display:block;"
+    ></video>
+  </div>
 
-  <audio id="inviteMusic" controls></audio>
+  <!-- UI (appears after audio starts) -->
+  <div id="inviteUI">
+    <h1 id="eventTitle"></h1>
 
-  <br><br>
+    <div id="countdown"></div>
 
-  <a id="mapLink" target="_blank">Open Map</a>
+    <a id="mapLink" target="_blank">Open Map</a><br>
+    <a id="calendarLink" target="_blank">Add to Calendar</a>
+  </div>
 
-  <!-- Order matters -->
+  <!-- Hidden audio -->
+  <audio id="inviteMusic" loop></audio>
+
+  <!-- Scripts -->
   <script src="assets/config/demo.js"></script>
   <script src="assets/core/invite.js"></script>
 
 </body>
 </html>
-
