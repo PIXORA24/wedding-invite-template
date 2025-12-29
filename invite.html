@@ -42,24 +42,27 @@
       box-shadow:
         0 20px 40px rgba(0,0,0,0.35),
         0 0 0 1px rgba(255,255,255,0.05);
+
+      /* Performance hint */
+      will-change: transform;
     }
 
-    /* ---------------- Hero card breathing motion ---------------- */
+    /* ---------------- Hero card breathing motion (GPU optimized) ---------------- */
     @keyframes cardBreathing {
       0% {
-        transform: translateY(0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
       }
       50% {
-        transform: translateY(-6px) scale(1.01);
+        transform: translate3d(0, -4px, 0) scale(1.008);
       }
       100% {
-        transform: translateY(0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
       }
     }
 
     /* Apply breathing ONLY after UI becomes visible */
     .ui-visible .invite-panel {
-      animation: cardBreathing 10s ease-in-out infinite;
+      animation: cardBreathing 12s ease-in-out infinite;
     }
 
     /* ---------------- UI container ---------------- */
