@@ -39,7 +39,7 @@ function updateCountdown() {
   const minutes = Math.floor((diff / 60000) % 60);
 
   countdownEl.textContent =
-    `${days} days · ${hours} hours · ${minutes} minutes remaining`;
+    `${days} days · ${hours} hours · ${minutes} minutes`;
 }
 
 updateCountdown();
@@ -71,3 +71,4 @@ overlay.addEventListener("click", async () => {
     console.error("Playback failed:", err);
   }
 });
+
