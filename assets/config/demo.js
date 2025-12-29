@@ -6,15 +6,14 @@ window.INVITE_DATA = {
 
   events: {
     wedding: {
-      label: "Wedding",
-      enabled: true,
-      dateTimeISO: "2025-12-12T10:30:00",
-      dateText: "December 12, 2025",
-      timeText: "10:30 AM",
-      venue: "Royal Convention Hall",
-      mapLink: "https://maps.app.goo.gl/demo",
-      path: "assets/demo/wedding/"
-    },
+  label: "Wedding",
+  enabled: true,
+  dateTimeISO: "2026-06-28T16:00:00+05:30",
+  venue: "123 anywhere st, any city",
+  mapLink: "https://maps.app.goo.gl/demo",
+  path: "assets/demo/wedding/"
+}
+,
 
    reception: {
   label: "Reception",
@@ -28,5 +27,6 @@ window.INVITE_DATA = {
     }
   }
 };
+
 
 
