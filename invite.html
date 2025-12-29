@@ -69,42 +69,54 @@
       }
     }
 
-    /* ================= Countdown (premium) ================= */
-    #countdown {
-      display: inline-block;
-      margin: 12px auto 8px;
-      padding: 10px 22px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.14);
-      font-size: 14px;
-      letter-spacing: 0.6px;
-      color: rgba(255,255,255,0.88);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 18px rgba(212,175,55,0.12);
-      opacity: 0;
-      transform: scale(0.96);
-      will-change: transform, opacity;
-    }
+    /* ================= Floating Time Aura ================= */
+#countdown {
+  position: relative;
+  margin: 14px auto 6px;
+  font-size: 14px;
+  letter-spacing: 0.7px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.82);
+  opacity: 0;
+  transform: translateY(6px);
+  text-align: center;
+  will-change: opacity, transform;
+}
 
-    .ui-visible #countdown {
-      animation:
-        countdownReveal 1s ease forwards 1.6s,
-        countdownBreath 9s ease-in-out infinite 2.8s;
-    }
+/* soft glow aura */
+#countdown::before {
+  content: "";
+  position: absolute;
+  inset: -18px -28px;
+  background: radial-gradient(
+    circle at center,
+    rgba(212,175,55,0.35),
+    transparent 65%
+  );
+  filter: blur(28px);
+  opacity: 0.6;
+  z-index: -1;
+  animation: auraBreath 9s ease-in-out infinite;
+}
 
-    @keyframes countdownReveal {
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
+/* reveal + float */
+.ui-visible #countdown {
+  animation: countdownReveal 1s ease forwards 1.4s;
+}
 
-    @keyframes countdownBreath {
-      0%   { transform: scale(1);     opacity: 0.85; }
-      50%  { transform: scale(1.025); opacity: 1; }
-      100% { transform: scale(1);     opacity: 0.85; }
-    }
+@keyframes countdownReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes auraBreath {
+  0%   { opacity: 0.35; filter: blur(26px); }
+  50%  { opacity: 0.65; filter: blur(32px); }
+  100% { opacity: 0.35; filter: blur(26px); }
+}
+
 
     /* ================= Fixed action bar ================= */
     .action-bar {
