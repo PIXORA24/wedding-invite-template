@@ -6,38 +6,29 @@
   <title>Invitation</title>
 
   <style>
-    /* ===== ROOT LOCK (SAFE) ===== */
-    html {
+    /* ===== ROOT LOCK ===== */
+    html, body {
+      margin: 0;
+      padding: 0;
       overflow-x: hidden;
-    }
-
-    /* ===== AMBIENT BACKGROUND DRIFT ===== */
-    @keyframes ambientDrift {
-      0% {
-        background-position: 50% 0%;
-      }
-      50% {
-        background-position: 50% 100%;
-      }
-      100% {
-        background-position: 50% 0%;
-      }
+      background: #000;
     }
 
     body {
-      margin: 0;
       padding: 16px 16px 140px;
       background:
-        radial-gradient(circle at top, #1c0d14 0%, #000 68%),
-        radial-gradient(circle at bottom, rgba(212,175,55,0.12), transparent 60%);
-      background-size: 100% 200%;
-      background-position: 50% 0%;
-      animation: ambientDrift 18s ease-in-out infinite;
-
+        radial-gradient(circle at top, #1c0d14 0%, #000 68%);
       color: #fff;
       font-family: serif;
       text-align: center;
-      overflow-x: hidden;
+    }
+
+    /* ===== AMBIENT PARTICLE CANVAS ===== */
+    #ambientParticles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* ===== OVERLAY ===== */
@@ -65,10 +56,13 @@
       background: linear-gradient(135deg, #f6e27a, #d4af37);
       color: #000;
       font-weight: 500;
+      box-shadow: 0 10px 30px rgba(212,175,55,0.35);
     }
 
     /* ===== INVITE PANEL ===== */
     .invite-panel {
+      position: relative;
+      z-index: 1;
       max-width: 360px;
       margin: 28px auto 16px;
       border-radius: 20px;
@@ -93,6 +87,8 @@
 
     /* ===== COUNTDOWN ===== */
     #countdown {
+      position: relative;
+      z-index: 1;
       margin: 14px auto;
       font-size: 14px;
       letter-spacing: 0.6px;
@@ -137,16 +133,22 @@
 </head>
 <body>
 
+  <!-- AMBIENT PARTICLES -->
+  <canvas id="ambientParticles"></canvas>
+
+  <!-- TAP OVERLAY -->
   <div id="tapOverlay">
     <div class="tapText">Tap to View Invite ✨</div>
   </div>
 
+  <!-- INVITE -->
   <div class="invite-panel">
     <video id="inviteVideo" playsinline muted></video>
   </div>
 
   <div id="countdown"></div>
 
+  <!-- ACTION BAR -->
   <div class="action-bar">
     <a id="mapLink" target="_blank">Open Map</a>
     <a id="calendarLink" target="_blank">Add to Calendar</a>
@@ -156,6 +158,49 @@
 
   <script src="assets/config/demo.js"></script>
   <script src="assets/core/invite.js"></script>
+
+  <!-- PARTICLE SCRIPT -->
+  <script>
+    const canvas = document.getElementById("ambientParticles");
+    const ctx = canvas.getContext("2d");
+
+    let w, h;
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    const particles = Array.from({ length: 30 }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.6 + 0.6,
+      a: Math.random() * 0.25 + 0.1,
+      s: Math.random() * 0.18 + 0.04
+    }));
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+
+      for (const p of particles) {
+        p.y -= p.s;
+        if (p.y < -10) {
+          p.y = h + 10;
+          p.x = Math.random() * w;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(212,175,55,${p.a})`;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
 
 </body>
 </html>
