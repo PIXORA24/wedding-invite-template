@@ -11,7 +11,7 @@ window.INVITE_DATA = {
   dateTimeISO: "2026-06-28T16:00:00+05:30",
   venue: "123 anywhere st, any city",
   mapLink: "https://maps.app.goo.gl/demo",
-  path: "assets/demo/wedding/"
+  path: "assets/media/demo/wedding/"
 },
 
 reception: {
@@ -20,7 +20,7 @@ reception: {
   dateTimeISO: "2026-06-30T19:00:00+05:30",
   venue: "123 anywhere st, any city",
   mapLink: "https://maps.app.goo.gl/demo",
-  path: "assets/demo/reception/"
+  path: "assets/media/demo/reception/"
 },
 
     mehndi: {
@@ -29,6 +29,7 @@ reception: {
     }
   }
 };
+
 
 
 
