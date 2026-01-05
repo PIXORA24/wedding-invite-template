@@ -6,9 +6,10 @@
   <title>Invitation</title>
 
   <style>
-    /* ================= HARD LOCK ================= */
+    /* ===== HARD LOCK ===== */
     html, body {
       width: 100%;
+      max-width: 100%;
       overflow-x: hidden;
     }
 
@@ -22,7 +23,7 @@
       position: relative;
     }
 
-    /* ================= Overlay ================= */
+    /* ===== OVERLAY (NO SCALE, NO TRANSFORM) ===== */
     #tapOverlay {
       position: fixed;
       inset: 0;
@@ -32,12 +33,11 @@
       justify-content: center;
       z-index: 9999;
       cursor: pointer;
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition: opacity 0.6s ease;
     }
 
     #tapOverlay.hide {
       opacity: 0;
-      transform: scale(1.03);
       pointer-events: none;
     }
 
@@ -51,7 +51,7 @@
       box-shadow: 0 10px 30px rgba(212,175,55,0.35);
     }
 
-    /* ================= Invite panel ================= */
+    /* ===== INVITE PANEL (NO SCALE) ===== */
     .invite-panel {
       max-width: 360px;
       margin: 26px auto 14px;
@@ -61,22 +61,16 @@
         0 40px 80px rgba(0,0,0,0.6),
         0 0 0 1px rgba(255,255,255,0.06);
       opacity: 0;
-      transform: translateY(10px) scale(0.985);
-      will-change: transform;
+      transform: translateY(16px);
     }
 
     .ui-visible .invite-panel {
-      animation: settleCard 1.2s cubic-bezier(0.22,0.61,0.36,1) forwards;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 1s ease, transform 1s ease;
     }
 
-    @keyframes settleCard {
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    /* ================= COUNTDOWN (STABLE) ================= */
+    /* ===== COUNTDOWN (STATIC, SAFE) ===== */
     #countdown {
       margin: 14px auto 6px;
       font-size: 14px;
@@ -97,7 +91,7 @@
         0 0 22px rgba(212,175,55,0.12);
     }
 
-    /* ================= Fixed action bar ================= */
+    /* ===== ACTION BAR ===== */
     .action-bar {
       position: fixed;
       left: 0;
@@ -130,7 +124,7 @@
       transform: scale(0.96);
     }
 
-    /* ================= Ambient footer ================= */
+    /* ===== FOOTER AMBIENT ===== */
     .footer-ambient {
       position: absolute;
       left: 0;
@@ -150,29 +144,23 @@
 </head>
 <body>
 
-  <!-- TAP OVERLAY -->
   <div id="tapOverlay">
     <div class="tapText">Tap to View Invite ✨</div>
   </div>
 
-  <!-- VIDEO PANEL -->
   <div class="invite-panel">
     <video id="inviteVideo" playsinline muted style="width:100%; display:block;"></video>
   </div>
 
-  <!-- COUNTDOWN -->
   <div id="countdown"></div>
 
-  <!-- FIXED ACTION BAR -->
   <div class="action-bar">
     <a id="mapLink" target="_blank">Open Map</a>
     <a id="calendarLink" target="_blank">Add to Calendar</a>
   </div>
 
-  <!-- AMBIENT FOOTER -->
   <div class="footer-ambient"></div>
 
-  <!-- AUDIO -->
   <audio id="inviteMusic" loop></audio>
 
   <script src="assets/config/demo.js"></script>
