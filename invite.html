@@ -2,28 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Invitation</title>
 
   <style>
-    /* ===== HARD LOCK ===== */
+    /* ===== ROOT RESET ===== */
     html, body {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
     }
 
-    body {
-      margin: 0;
-      padding: 16px 16px 130px;
+    /* ===== FIXED VIEWPORT (KEY FIX) ===== */
+    .viewport {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100dvh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
       background: radial-gradient(circle at top, #1c0d14 0%, #000 68%);
       color: #fff;
       font-family: serif;
       text-align: center;
-      position: relative;
     }
 
-    /* ===== OVERLAY (NO SCALE, NO TRANSFORM) ===== */
+    /* ===== CONTENT WRAP ===== */
+    .content {
+      padding: 16px 16px 140px;
+      max-width: 100%;
+    }
+
+    /* ===== OVERLAY ===== */
     #tapOverlay {
       position: fixed;
       inset: 0;
@@ -33,7 +46,7 @@
       justify-content: center;
       z-index: 9999;
       cursor: pointer;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.5s ease;
     }
 
     #tapOverlay.hide {
@@ -48,38 +61,41 @@
       background: linear-gradient(135deg, #f6e27a, #d4af37);
       color: #000;
       font-weight: 500;
-      box-shadow: 0 10px 30px rgba(212,175,55,0.35);
     }
 
-    /* ===== INVITE PANEL (NO SCALE) ===== */
+    /* ===== INVITE PANEL ===== */
     .invite-panel {
       max-width: 360px;
-      margin: 26px auto 14px;
+      margin: 28px auto 16px;
       border-radius: 20px;
       overflow: hidden;
       box-shadow:
-        0 40px 80px rgba(0,0,0,0.6),
+        0 30px 60px rgba(0,0,0,0.6),
         0 0 0 1px rgba(255,255,255,0.06);
       opacity: 0;
-      transform: translateY(16px);
+      transform: translateY(20px);
     }
 
     .ui-visible .invite-panel {
       opacity: 1;
       transform: translateY(0);
-      transition: opacity 1s ease, transform 1s ease;
+      transition: opacity 0.9s ease, transform 0.9s ease;
     }
 
-    /* ===== COUNTDOWN (STATIC, SAFE) ===== */
+    video {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ===== COUNTDOWN ===== */
     #countdown {
-      margin: 14px auto 6px;
+      margin: 14px auto;
       font-size: 14px;
       letter-spacing: 0.6px;
-      font-weight: 400;
       color: rgba(255,255,255,0.78);
       opacity: 0;
       transform: translateY(6px);
-      text-align: center;
     }
 
     .ui-visible #countdown {
@@ -100,12 +116,7 @@
       padding: 14px 16px 22px;
       display: flex;
       gap: 12px;
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,0.9),
-        rgba(0,0,0,0)
-      );
-      backdrop-filter: blur(8px);
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
       z-index: 50;
     }
 
@@ -119,49 +130,34 @@
       text-decoration: none;
       font-size: 14px;
     }
-
-    .action-bar a:active {
-      transform: scale(0.96);
-    }
-
-    /* ===== FOOTER AMBIENT ===== */
-    .footer-ambient {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 200px;
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(212,175,55,0.16),
-          rgba(0,0,0,0.95) 70%
-        );
-      pointer-events: none;
-      z-index: -1;
-    }
   </style>
 </head>
 <body>
 
-  <div id="tapOverlay">
-    <div class="tapText">Tap to View Invite ✨</div>
+  <div class="viewport">
+
+    <div id="tapOverlay">
+      <div class="tapText">Tap to View Invite ✨</div>
+    </div>
+
+    <div class="content">
+
+      <div class="invite-panel">
+        <video id="inviteVideo" playsinline muted></video>
+      </div>
+
+      <div id="countdown"></div>
+
+    </div>
+
+    <div class="action-bar">
+      <a id="mapLink" target="_blank">Open Map</a>
+      <a id="calendarLink" target="_blank">Add to Calendar</a>
+    </div>
+
+    <audio id="inviteMusic" loop></audio>
+
   </div>
-
-  <div class="invite-panel">
-    <video id="inviteVideo" playsinline muted style="width:100%; display:block;"></video>
-  </div>
-
-  <div id="countdown"></div>
-
-  <div class="action-bar">
-    <a id="mapLink" target="_blank">Open Map</a>
-    <a id="calendarLink" target="_blank">Add to Calendar</a>
-  </div>
-
-  <div class="footer-ambient"></div>
-
-  <audio id="inviteMusic" loop></audio>
 
   <script src="assets/config/demo.js"></script>
   <script src="assets/core/invite.js"></script>
