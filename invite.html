@@ -6,6 +6,12 @@
   <title>Invitation</title>
 
   <style>
+    /* ================= HARD LOCK ================= */
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       margin: 0;
       padding: 16px 16px 130px;
@@ -13,7 +19,6 @@
       color: #fff;
       font-family: serif;
       text-align: center;
-      overflow-x: hidden;
       position: relative;
     }
 
@@ -61,7 +66,7 @@
     }
 
     .ui-visible .invite-panel {
-      animation: settleCard 1.3s cubic-bezier(0.22,0.61,0.36,1) forwards;
+      animation: settleCard 1.2s cubic-bezier(0.22,0.61,0.36,1) forwards;
     }
 
     @keyframes settleCard {
@@ -71,51 +76,25 @@
       }
     }
 
-    /* ================= Floating Time Aura ================= */
+    /* ================= COUNTDOWN (STABLE) ================= */
     #countdown {
-      position: relative;
       margin: 14px auto 6px;
       font-size: 14px;
-      letter-spacing: 0.7px;
+      letter-spacing: 0.6px;
       font-weight: 400;
-      color: rgba(255,255,255,0.82);
+      color: rgba(255,255,255,0.78);
       opacity: 0;
       transform: translateY(6px);
       text-align: center;
-      will-change: opacity, transform;
-    }
-
-    /* aura glow */
-    #countdown::before {
-      content: "";
-      position: absolute;
-      inset: -18px -28px;
-      background: radial-gradient(
-        circle at center,
-        rgba(212,175,55,0.35),
-        transparent 65%
-      );
-      filter: blur(28px);
-      opacity: 0.6;
-      z-index: -1;
-      animation: auraBreath 9s ease-in-out infinite;
     }
 
     .ui-visible #countdown {
-      animation: countdownReveal 1s ease forwards 1.4s;
-    }
-
-    @keyframes countdownReveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes auraBreath {
-      0%   { opacity: 0.35; filter: blur(26px); }
-      50%  { opacity: 0.65; filter: blur(32px); }
-      100% { opacity: 0.35; filter: blur(26px); }
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      text-shadow:
+        0 0 10px rgba(212,175,55,0.25),
+        0 0 22px rgba(212,175,55,0.12);
     }
 
     /* ================= Fixed action bar ================= */
@@ -151,7 +130,7 @@
       transform: scale(0.96);
     }
 
-    /* ================= Ambient footer fill (fix black gap) ================= */
+    /* ================= Ambient footer ================= */
     .footer-ambient {
       position: absolute;
       left: 0;
@@ -161,7 +140,7 @@
       background:
         radial-gradient(
           circle at center,
-          rgba(212,175,55,0.18),
+          rgba(212,175,55,0.16),
           rgba(0,0,0,0.95) 70%
         );
       pointer-events: none;
@@ -190,7 +169,7 @@
     <a id="calendarLink" target="_blank">Add to Calendar</a>
   </div>
 
-  <!-- AMBIENT FOOTER FILL -->
+  <!-- AMBIENT FOOTER -->
   <div class="footer-ambient"></div>
 
   <!-- AUDIO -->
