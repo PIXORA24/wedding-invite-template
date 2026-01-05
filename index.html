@@ -44,8 +44,29 @@
 
   <div id="eventGrid"></div>
 
-  <script src="assets/config/demo.js"></script>
-  <script src="assets/core/index.js"></script>
+  <!-- =========================
+       LOAD CLIENT CONFIG DYNAMICALLY
+       ========================= -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const client = params.get("client") || "demo";
+
+    const configScript = document.createElement("script");
+    configScript.src = `assets/config/${client}.js`;
+    configScript.defer = true;
+
+    configScript.onerror = () => {
+      document.body.innerHTML =
+        "<p style='text-align:center;margin-top:40px;'>Invalid or missing client configuration.</p>";
+    };
+
+    document.head.appendChild(configScript);
+  </script>
+
+  <!-- =========================
+       CORE LOGIC (runs AFTER config loads)
+       ========================= -->
+  <script src="assets/core/index.js" defer></script>
 
 </body>
 </html>
