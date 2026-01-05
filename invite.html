@@ -6,12 +6,6 @@
   <title>Invitation</title>
 
   <style>
-    /* ================= Root lock (CRITICAL) ================= */
-    html, body {
-      width: 100%;
-      overflow-x: hidden;
-    }
-
     body {
       margin: 0;
       padding: 16px 16px 130px;
@@ -19,6 +13,7 @@
       color: #fff;
       font-family: serif;
       text-align: center;
+      overflow-x: hidden;
       position: relative;
     }
 
@@ -61,7 +56,7 @@
         0 40px 80px rgba(0,0,0,0.6),
         0 0 0 1px rgba(255,255,255,0.06);
       opacity: 0;
-      transform: translateY(10px) scale(0.985) translateZ(0);
+      transform: translateY(10px) scale(0.985);
       will-change: transform;
     }
 
@@ -72,11 +67,11 @@
     @keyframes settleCard {
       to {
         opacity: 1;
-        transform: translateY(0) scale(1) translateZ(0);
+        transform: translateY(0) scale(1);
       }
     }
 
-    /* ================= Floating Time Aura (FIXED) ================= */
+    /* ================= Floating Time Aura ================= */
     #countdown {
       position: relative;
       margin: 14px auto 6px;
@@ -85,20 +80,16 @@
       font-weight: 400;
       color: rgba(255,255,255,0.82);
       opacity: 0;
-      transform: translateY(6px) translateZ(0);
+      transform: translateY(6px);
       text-align: center;
       will-change: opacity, transform;
     }
 
-    /* centered, safe aura */
+    /* aura glow */
     #countdown::before {
       content: "";
       position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 140%;
-      height: 140%;
-      transform: translate(-50%, -50%);
+      inset: -18px -28px;
       background: radial-gradient(
         circle at center,
         rgba(212,175,55,0.35),
@@ -117,7 +108,7 @@
     @keyframes countdownReveal {
       to {
         opacity: 1;
-        transform: translateY(0) translateZ(0);
+        transform: translateY(0);
       }
     }
 
@@ -143,7 +134,6 @@
       );
       backdrop-filter: blur(8px);
       z-index: 50;
-      transform: translateZ(0);
     }
 
     .action-bar a {
@@ -161,13 +151,13 @@
       transform: scale(0.96);
     }
 
-    /* ================= Ambient footer fill ================= */
+    /* ================= Ambient footer fill (fix black gap) ================= */
     .footer-ambient {
       position: absolute;
       left: 0;
       right: 0;
       bottom: 0;
-      height: 220px;
+      height: 200px;
       background:
         radial-gradient(
           circle at center,
