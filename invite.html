@@ -6,37 +6,22 @@
   <title>Invitation</title>
 
   <style>
-    /* ===== ROOT RESET ===== */
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background: #000;
+    /* ===== ROOT LOCK (SAFE) ===== */
+    html {
+      overflow-x: hidden;
     }
 
-    /* ===== FIXED VIEWPORT (KEY FIX) ===== */
-    .viewport {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100dvh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
+    body {
+      margin: 0;
+      padding: 16px 16px 140px;
       background: radial-gradient(circle at top, #1c0d14 0%, #000 68%);
       color: #fff;
       font-family: serif;
       text-align: center;
+      overflow-x: hidden;
     }
 
-    /* ===== CONTENT WRAP ===== */
-    .content {
-      padding: 16px 16px 140px;
-      max-width: 100%;
-    }
-
-    /* ===== OVERLAY ===== */
+    /* ===== OVERLAY (NORMAL FLOW SAFE) ===== */
     #tapOverlay {
       position: fixed;
       inset: 0;
@@ -63,7 +48,7 @@
       font-weight: 500;
     }
 
-    /* ===== INVITE PANEL ===== */
+    /* ===== INVITE PANEL (NO SCALE, NO VW) ===== */
     .invite-panel {
       max-width: 360px;
       margin: 28px auto 16px;
@@ -74,17 +59,16 @@
         0 0 0 1px rgba(255,255,255,0.06);
       opacity: 0;
       transform: translateY(20px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
     }
 
     .ui-visible .invite-panel {
       opacity: 1;
       transform: translateY(0);
-      transition: opacity 0.9s ease, transform 0.9s ease;
     }
 
     video {
       width: 100%;
-      max-width: 100%;
       display: block;
     }
 
@@ -96,15 +80,15 @@
       color: rgba(255,255,255,0.78);
       opacity: 0;
       transform: translateY(6px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      text-shadow:
+        0 0 10px rgba(212,175,55,0.25),
+        0 0 22px rgba(212,175,55,0.12);
     }
 
     .ui-visible #countdown {
       opacity: 1;
       transform: translateY(0);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      text-shadow:
-        0 0 10px rgba(212,175,55,0.25),
-        0 0 22px rgba(212,175,55,0.12);
     }
 
     /* ===== ACTION BAR ===== */
@@ -134,30 +118,22 @@
 </head>
 <body>
 
-  <div class="viewport">
-
-    <div id="tapOverlay">
-      <div class="tapText">Tap to View Invite ✨</div>
-    </div>
-
-    <div class="content">
-
-      <div class="invite-panel">
-        <video id="inviteVideo" playsinline muted></video>
-      </div>
-
-      <div id="countdown"></div>
-
-    </div>
-
-    <div class="action-bar">
-      <a id="mapLink" target="_blank">Open Map</a>
-      <a id="calendarLink" target="_blank">Add to Calendar</a>
-    </div>
-
-    <audio id="inviteMusic" loop></audio>
-
+  <div id="tapOverlay">
+    <div class="tapText">Tap to View Invite ✨</div>
   </div>
+
+  <div class="invite-panel">
+    <video id="inviteVideo" playsinline muted></video>
+  </div>
+
+  <div id="countdown"></div>
+
+  <div class="action-bar">
+    <a id="mapLink" target="_blank">Open Map</a>
+    <a id="calendarLink" target="_blank">Add to Calendar</a>
+  </div>
+
+  <audio id="inviteMusic" loop></audio>
 
   <script src="assets/config/demo.js"></script>
   <script src="assets/core/invite.js"></script>
