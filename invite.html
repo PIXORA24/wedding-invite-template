@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <!-- LOCK ZOOM / PAN -->
+  <meta name="viewport"
+        content="width=device-width,
+                 initial-scale=1,
+                 maximum-scale=1,
+                 user-scalable=no,
+                 viewport-fit=cover" />
+
   <title>Invitation</title>
 
   <style>
@@ -11,6 +19,8 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
+      overscroll-behavior: none;
+      touch-action: manipulation;
       background: #000;
     }
 
@@ -31,7 +41,7 @@
       pointer-events: none;
     }
 
-    /* ===== OVERLAY ===== */
+    /* ===== TAP OVERLAY ===== */
     #tapOverlay {
       position: fixed;
       inset: 0;
@@ -67,9 +77,12 @@
       margin: 28px auto 16px;
       border-radius: 20px;
       overflow: hidden;
+      background: #000;
+
       box-shadow:
         0 30px 60px rgba(0,0,0,0.6),
         0 0 0 1px rgba(255,255,255,0.06);
+
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.9s ease, transform 0.9s ease;
@@ -93,9 +106,11 @@
       font-size: 14px;
       letter-spacing: 0.6px;
       color: rgba(255,255,255,0.78);
+
       opacity: 0;
       transform: translateY(6px);
       transition: opacity 0.8s ease, transform 0.8s ease;
+
       text-shadow:
         0 0 10px rgba(212,175,55,0.25),
         0 0 22px rgba(212,175,55,0.12);
@@ -129,6 +144,41 @@
       text-decoration: none;
       font-size: 14px;
     }
+
+    /* ===== SCROLL END MESSAGE ===== */
+    #scrollMessage {
+      position: fixed;
+      left: 50%;
+      bottom: 40px;
+      transform: translateX(-50%) translateY(40px);
+
+      font-size: 16px;
+      letter-spacing: 0.6px;
+      color: rgba(255,255,255,0.85);
+
+      opacity: 0;
+      pointer-events: none;
+      z-index: 40;
+    }
+
+    @keyframes riseAndFade {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(40px);
+      }
+      30% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      70% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+      }
+    }
   </style>
 </head>
 <body>
@@ -152,6 +202,11 @@
   <div class="action-bar">
     <a id="mapLink" target="_blank">Open Map</a>
     <a id="calendarLink" target="_blank">Add to Calendar</a>
+  </div>
+
+  <!-- SCROLL END MESSAGE -->
+  <div id="scrollMessage">
+    With love, we await your presence
   </div>
 
   <audio id="inviteMusic" loop></audio>
@@ -200,6 +255,24 @@
     }
 
     animate();
+  </script>
+
+  <!-- SCROLL DETECTION -->
+  <script>
+    let scrollMessageShown = false;
+
+    window.addEventListener("scroll", () => {
+      if (scrollMessageShown) return;
+
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 4;
+
+      if (atBottom) {
+        const msg = document.getElementById("scrollMessage");
+        msg.style.animation = "riseAndFade 4.8s ease forwards";
+        scrollMessageShown = true;
+      }
+    });
   </script>
 
 </body>
