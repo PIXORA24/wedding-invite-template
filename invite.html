@@ -23,41 +23,13 @@
       touch-action: manipulation;
     }
 
+    /* ===== NEUTRAL DARK SPACE ===== */
     body {
       padding: 16px 16px 140px;
       color: #fff;
       font-family: serif;
       text-align: center;
-
-      /* ===== CEREMONIAL BACKDROP ===== */
-      background:
-        /* warm top glow */
-        radial-gradient(
-          80% 40% at 50% 0%,
-          rgba(212,175,55,0.18),
-          transparent 60%
-        ),
-        /* secondary warmth */
-        radial-gradient(
-          60% 30% at 20% 20%,
-          rgba(180,120,80,0.12),
-          transparent 65%
-        ),
-        /* deep base */
-        linear-gradient(
-          to bottom,
-          #14080d 0%,
-          #090407 45%,
-          #000 100%
-        );
-    }
-
-    /* ===== AMBIENT PARTICLE CANVAS ===== */
-    #ambientParticles {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
+      background: #080405;
     }
 
     /* ===== TAP OVERLAY ===== */
@@ -88,12 +60,12 @@
       box-shadow: 0 10px 30px rgba(212,175,55,0.35);
     }
 
-    /* ===== INVITE PANEL ===== */
+    /* ===== INVITE PANEL (RITUAL OBJECT) ===== */
     .invite-panel {
       position: relative;
       z-index: 1;
       max-width: 360px;
-      margin: 32px auto 18px;
+      margin: 36px auto 18px;
       border-radius: 20px;
       overflow: hidden;
       background: #000;
@@ -107,19 +79,37 @@
       transition: opacity 0.9s ease, transform 0.9s ease;
     }
 
-    /* ===== GROUNDING SHADOW (FINAL TOUCH) ===== */
+    /* ===== CEREMONIAL HALO (THIS IS THE KEY) ===== */
+    .invite-panel::before {
+      content: "";
+      position: absolute;
+      inset: -48px;
+      z-index: -1;
+
+      background: radial-gradient(
+        circle at top center,
+        rgba(212,175,55,0.22),
+        rgba(212,175,55,0.12) 35%,
+        transparent 72%
+      );
+
+      filter: blur(32px);
+      pointer-events: none;
+    }
+
+    /* ===== GROUNDING SHADOW ===== */
     .invite-panel::after {
       content: "";
       position: absolute;
-      left: 10%;
-      right: 10%;
+      left: 12%;
+      right: 12%;
       bottom: -18px;
       height: 24px;
       z-index: -1;
 
       background: radial-gradient(
         ellipse at center,
-        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.55),
         transparent 70%
       );
 
@@ -187,9 +177,6 @@
 
 <body>
 
-  <!-- AMBIENT PARTICLES -->
-  <canvas id="ambientParticles"></canvas>
-
   <!-- TAP OVERLAY -->
   <div id="tapOverlay">
     <div class="tapText">Tap to View Invite ✨</div>
@@ -212,49 +199,6 @@
 
   <script src="assets/config/demo.js"></script>
   <script src="assets/core/invite.js"></script>
-
-  <!-- PARTICLE SCRIPT -->
-  <script>
-    const canvas = document.getElementById("ambientParticles");
-    const ctx = canvas.getContext("2d");
-
-    let w, h;
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener("resize", resize);
-
-    const particles = Array.from({ length: 30 }, () => ({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: Math.random() * 1.6 + 0.6,
-      a: Math.random() * 0.25 + 0.1,
-      s: Math.random() * 0.18 + 0.04
-    }));
-
-    function animate() {
-      ctx.clearRect(0, 0, w, h);
-
-      for (const p of particles) {
-        p.y -= p.s;
-        if (p.y < -10) {
-          p.y = h + 10;
-          p.x = Math.random() * w;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(212,175,55,${p.a})`;
-        ctx.fill();
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-  </script>
 
 </body>
 </html>
