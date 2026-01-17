@@ -21,16 +21,35 @@
       overflow-x: hidden;
       overscroll-behavior: none;
       touch-action: manipulation;
-      background: #000;
     }
 
     body {
       padding: 16px 16px 140px;
-      background:
-        radial-gradient(circle at top, #1c0d14 0%, #000 68%);
       color: #fff;
       font-family: serif;
       text-align: center;
+
+      /* ===== CEREMONIAL BACKDROP ===== */
+      background:
+        /* warm top glow */
+        radial-gradient(
+          80% 40% at 50% 0%,
+          rgba(212,175,55,0.18),
+          transparent 60%
+        ),
+        /* secondary warmth */
+        radial-gradient(
+          60% 30% at 20% 20%,
+          rgba(180,120,80,0.12),
+          transparent 65%
+        ),
+        /* deep base */
+        linear-gradient(
+          to bottom,
+          #14080d 0%,
+          #090407 45%,
+          #000 100%
+        );
     }
 
     /* ===== AMBIENT PARTICLE CANVAS ===== */
@@ -74,7 +93,7 @@
       position: relative;
       z-index: 1;
       max-width: 360px;
-      margin: 28px auto 16px;
+      margin: 32px auto 18px;
       border-radius: 20px;
       overflow: hidden;
       background: #000;
@@ -86,6 +105,25 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    /* ===== GROUNDING SHADOW (FINAL TOUCH) ===== */
+    .invite-panel::after {
+      content: "";
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      bottom: -18px;
+      height: 24px;
+      z-index: -1;
+
+      background: radial-gradient(
+        ellipse at center,
+        rgba(0,0,0,0.45),
+        transparent 70%
+      );
+
+      filter: blur(12px);
     }
 
     .ui-visible .invite-panel {
