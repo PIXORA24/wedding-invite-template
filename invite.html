@@ -144,43 +144,9 @@
       text-decoration: none;
       font-size: 14px;
     }
-
-    /* ===== SCROLL END MESSAGE ===== */
-    #scrollMessage {
-      position: fixed;
-      left: 50%;
-      bottom: 40px;
-      transform: translateX(-50%) translateY(40px);
-
-      font-size: 16px;
-      letter-spacing: 0.6px;
-      color: rgba(255,255,255,0.85);
-
-      opacity: 0;
-      pointer-events: none;
-      z-index: 40;
-    }
-
-    @keyframes riseAndFade {
-      0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(40px);
-      }
-      30% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-      70% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-      100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-20px);
-      }
-    }
   </style>
 </head>
+
 <body>
 
   <!-- AMBIENT PARTICLES -->
@@ -202,11 +168,6 @@
   <div class="action-bar">
     <a id="mapLink" target="_blank">Open Map</a>
     <a id="calendarLink" target="_blank">Add to Calendar</a>
-  </div>
-
-  <!-- SCROLL END MESSAGE -->
-  <div id="scrollMessage">
-    With love, we await your presence
   </div>
 
   <audio id="inviteMusic" loop></audio>
@@ -255,24 +216,6 @@
     }
 
     animate();
-  </script>
-
-  <!-- SCROLL DETECTION -->
-  <script>
-    let scrollMessageShown = false;
-
-    window.addEventListener("scroll", () => {
-      if (scrollMessageShown) return;
-
-      const atBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 4;
-
-      if (atBottom) {
-        const msg = document.getElementById("scrollMessage");
-        msg.style.animation = "riseAndFade 4.8s ease forwards";
-        scrollMessageShown = true;
-      }
-    });
   </script>
 
 </body>
